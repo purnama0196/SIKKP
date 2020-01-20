@@ -20,9 +20,23 @@ class Login extends CI_Controller {
 		$cek = $this->login_model->cek_login("akun", $data)->num_rows();
 		
 		if($cek > 0){
+			$data = $this->login_model->cek_login("akun", $data)->row();
+
+			$data_session = array(
+				'username' => $data->username,
+				'status'   => 1,
+				'role'	   => $data->id_role
+			);
+
+			$this->session->set_userdata($data_session);
 			redirect(base_url('home'));
 		}else{
 			redirect(base_url('login'));
 		}
+	}
+
+	public function processLogout(){
+		$this->session->sess_destroy();
+		redirect(base_url('login'));
 	}
 }
