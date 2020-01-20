@@ -27,46 +27,37 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <!-- form start -->
-                <form class="form-horizontal" method="post" action="<?php echo base_url('dosen/processAdd');?>">
+                <form class="form-horizontal" method="post" action="<?php echo base_url('dosen/processEdit');?>">
                   <div class="box-body">
+                    <input type="hidden" class="form-control" id="id"
+                        name="id" value="<?php echo $dosen->id_dosen;?>">
                     <div class="form-group">
                       <label for="nik" class="col-sm-2 control-label">NIK</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" id="nik" placeholder="NIK"
-                        name="nik" required>
+                        name="nik" value="<?php echo $dosen->nik;?>" required>
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="nama" class="col-sm-2 control-label">Nama</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" id="nama" placeholder="Nama" 
-                        name="nama" required>
+                        name="nama" required value="<?php echo $dosen->nama_dosen;?>">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="nama" class="col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
                         <input type="email" class="form-control" id="email" placeholder="Email" 
-                        name="email" required>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="username" class="col-sm-2 control-label">Username</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="username" placeholder="Username" 
-                        name="username" required>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="password" class="col-sm-2 control-label">Password</label>
-                      <div class="col-sm-10">
-                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+                        name="email" value="<?php echo $dosen->email;?>"  required>
                       </div>
                     </div>
                   </div><!-- /.box-body -->
                   <div class="box-footer">
                     <button type="submit" class="btn btn-info pull-right">Save</button>
-                    <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;">Cancel</button>
+                    <a href="<?php echo base_url('dosen/index')?>">
+                      <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;">Cancel</button>
+                    </a>
                   </div><!-- /.box-footer -->
                 </form>
               </div><!-- /.box-body -->

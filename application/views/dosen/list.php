@@ -24,7 +24,9 @@
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">List Data Dosen</h3>
-                <button style="float: right;" class="btn btn-primary">Tambah</button>
+                <a href="<?php echo base_url('dosen/add')?>">
+                  <button style="float: right;" class="btn btn-primary">Tambah</button>
+                </a>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -33,9 +35,36 @@
                       <th>NIK</th>
                       <th>Nama</th>
                       <th>Email</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php
+                      if(!empty($dosen)){
+                        foreach ($dosen as $value) {
+                    ?>
+                      <tr>
+                        <td><?php echo $value["nik"];?></td>
+                        <td><?php echo $value["nama_dosen"];?></td>
+                        <td><?php echo $value["email"];?></td>
+                        <td>
+                          <a href="<?php echo base_url("dosen/edit/" . $value['id_dosen']);?>">
+                            <button class="btn btn-warning lg">
+                              <i class="fa fa-edit"></i>
+                            </button>
+                          </a>
+
+                          <a href="<?php echo base_url("dosen/delete/" . $value['id_dosen']);?>">
+                            <button class="btn btn-danger lg">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </a>
+                        </td>
+                      </tr>
+                    <?php 
+                        }
+                      }
+                    ?>
                   </tbody>
                 </table>
               </div><!-- /.box-body -->
