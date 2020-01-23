@@ -21,10 +21,16 @@ class Dosen extends CI_Controller {
 	}
 
 	public function processAdd(){
+		if($this->input->post("jabatan") == "kaprodi"){
+			$role = 2;
+		}else{
+			$role = 3;
+		}
+
 		$akun = array(
 			"username" => $this->input->post("username"),
 			"password" => md5($this->input->post("password")),
-			"id_role"  => 2
+			"id_role"  => $role
 		); 
 
 		$resp = $this->all_model->insertData('akun', $akun);
@@ -39,7 +45,8 @@ class Dosen extends CI_Controller {
 				"nik" 			=> $this->input->post("nik"),
 				"nama_dosen" 	=> $this->input->post("nama"),
 				"email" 		=> $this->input->post("email"),
-				"id_akun"		=> $res_akun->id_user
+				"id_akun"		=> $res_akun->id_user,
+				"jabatan"		=> $this->input->post("jabatan")
 			);
 			$res = $this->all_model->insertData('dosen',$dosen);
 			if($res == false){
@@ -52,32 +59,58 @@ class Dosen extends CI_Controller {
 
 	public function edit($id){
 		$where = array("id_dosen" => $id);
-		$data["dosen"] = $this->all_model->getDataById("dosen", $where)->row();
+		$data["dosen"] = $this->all_model->getDataByCondition("dosen", $where)->row();
 		$this->load->view('dosen/edit', $data);
 	}
-
+	
 	public function processEdit(){
-		$dosen = array(
-			"nik" 			=> $this->input->post("nik"),
-			"nama_dosen" 	=> $this->input->post("nama"),
-			"email" 		=> $this->input->post("email")
-		);
-
-		$condition = array("id_dosen" => $this->input->post("id"));
-
-		$res = $this->all_model->updateData('dosen',$condition,$dosen);
-		if($res == false){
-			redirect(base_url('dosen/edit/' . $this->input->post("id")));
+		if($this->input->post("jabatan") == "kaprodi"){
+			$role = 2;
+		}else{
+			$role = 3;
 		}
+
+		$where = array("id_dosen" => (int)$this->input->post("id"));
+		$dosen = $this->all_model->getDataByCondition("dosen", $where)->row();
 		
-		redirect(base_url('dosen/index'));
+		$condition = array("id_user" => $dosen->id_akun);
+		$akun = $this->all_model->getDataByCondition("akun", $condition)->row();
+
+		$d_akun = array("id_role" => $role);
+		$c_akun = array("id_user" => (int)$akun->id_user);
+		$r_akun = $this->all_model->updateData("akun",$c_akun,$d_akun);
+
+		if($r_akun == true){
+			$d_akun = array(
+				"nik" 			=> $this->input->post("nik"),
+				"nama_dosen" 	=> $this->input->post("nama"),
+				"email" 		=> $this->input->post("email"),
+				"jabatan"		=> $this->input->post("jabatan")
+			);;
+
+			$r_dosen = $this->all_model->updateData('dosen',$where,$dosen);
+			if($r_dosen == true){
+				redirect(base_url('dosen/index'));
+			}else{
+				redirect(base_url('dosen/edit'));
+			}
+		}
+		redirect(base_url('dosen/edit'));
 	}
 
 	public function delete($id){
-		$condition = array(
+		$c_dosen = array(
 			"id_dosen" => $id
 		);
-		$res = $this->all_model->deleteData("dosen",$condition);
+
+		$akun = $this->all_model->getDataByCondition("dosen", $c_dosen)->row();
+		$c_akun = array(
+			"id_user" => $akun->id_akun
+		);
+
+		$delete_akun = $this->all_model->deleteData("akun", $c_akun);
+		$delete_dosen = $this->all_model->deleteData("dosen",$c_dosen);
+
 		redirect(base_url("dosen/index"));
 	}
 }

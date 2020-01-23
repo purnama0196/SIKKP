@@ -23,7 +23,7 @@
           <div class="col-xs-12">
             <div class="box">
               <div class="box-header">
-                <h3 class="box-title">Tambah Data Dosen</h3>
+                <h3 class="box-title">Edit Data Dosen</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <!-- form start -->
@@ -50,6 +50,20 @@
                       <div class="col-sm-10">
                         <input type="email" class="form-control" id="email" placeholder="Email" 
                         name="email" value="<?php echo $dosen->email;?>"  required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="username" class="col-sm-2 control-label">Jabatan</label>
+                      <div class="col-sm-10">
+                        <select class="form-control select2" name="jabatan" style="width: 100%;">
+                          <?php if($dosen->jabatan == "kaprodi"){ ?>
+                            <option selected="selected" value="kaprodi">Kepala Prodi</option>
+                            <option value="dosen">Dosen</option>
+                          <?php }else{ ?>
+                            <option value="kaprodi">Kepala Prodi</option>
+                            <option value="dosen" selected="selected">Dosen</option>
+                          <?php } ?>
+                        </select>
                       </div>
                     </div>
                   </div><!-- /.box-body -->
