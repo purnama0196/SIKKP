@@ -47,6 +47,21 @@
           "info": true,
           "autoWidth": false
         });
+
+        var jabatan = $('.jabatan').val();
+        console.log(jabatan);
+        if(jabatan == 'kaprodi'){
+            $('.prodi').css('display', 'block');
+        }
+
+        $('.jabatan').on('change', function(){
+            var jabatan = $(this).val();
+            if(jabatan == 'kaprodi'){
+                $('.prodi').css('display', 'block');
+            }else{
+                $('.prodi').css('display', 'none');
+            }
+        });
       });
     </script>
   </body>

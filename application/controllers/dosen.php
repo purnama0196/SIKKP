@@ -17,7 +17,8 @@ class Dosen extends CI_Controller {
 	}
 
 	public function add(){
-		$this->load->view('dosen/add');
+		$data["prodi"] = $this->all_model->getList("prodi")->result_array();
+		$this->load->view('dosen/add', $data);
 	}
 
 	public function processAdd(){
@@ -46,7 +47,8 @@ class Dosen extends CI_Controller {
 				"nama_dosen" 	=> $this->input->post("nama"),
 				"email" 		=> $this->input->post("email"),
 				"id_akun"		=> $res_akun->id_user,
-				"jabatan"		=> $this->input->post("jabatan")
+				"jabatan"		=> $this->input->post("jabatan"),
+				"id_prodi"		=> $this->input->post("id_prodi")
 			);
 			$res = $this->all_model->insertData('dosen',$dosen);
 			if($res == false){
@@ -60,6 +62,7 @@ class Dosen extends CI_Controller {
 	public function edit($id){
 		$where = array("id_dosen" => $id);
 		$data["dosen"] = $this->all_model->getDataByCondition("dosen", $where)->row();
+		$data["prodi"] = $this->all_model->getList("prodi")->result_array();
 		$this->load->view('dosen/edit', $data);
 	}
 	
@@ -85,10 +88,10 @@ class Dosen extends CI_Controller {
 				"nik" 			=> $this->input->post("nik"),
 				"nama_dosen" 	=> $this->input->post("nama"),
 				"email" 		=> $this->input->post("email"),
-				"jabatan"		=> $this->input->post("jabatan")
-			);;
-
-			$r_dosen = $this->all_model->updateData('dosen',$where,$dosen);
+				"jabatan"		=> $this->input->post("jabatan"),
+				"id_prodi"		=> (int)$this->input->post("id_prodi")
+			);
+			$r_dosen = $this->all_model->updateData('dosen',$where,$d_akun);
 			if($r_dosen == true){
 				redirect(base_url('dosen/index'));
 			}else{

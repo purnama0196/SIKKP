@@ -57,4 +57,49 @@ class All_model extends CI_Model{
 		where fpk.status_approval = 2 and a.id_role = " . $role;
 		return $this->db->query($query);
 	}
+
+	public function getListKKPById($id){
+		if($id != 0){
+			$query = "SELECT fpk.*, a.username as username, p.prodi as nama_prodi FROM `form_pengajuan_kkp` fpk left JOIN prodi p on fpk.prodi = p.id_prodi left join akun a on a.id_user = fpk.id_pengaju where fpk.id_pengaju = " . $id;
+		}else{
+			$query = "SELECT fpk.*, a.username as username, p.prodi as nama_prodi FROM `form_pengajuan_kkp` fpk left JOIN prodi p on fpk.prodi = p.id_prodi left join akun a on a.id_user = fpk.id_pengaju";
+		}
+		return $this->db->query($query);
+	}
+
+	public function getListKKPByIdForm($id){
+		$query = "SELECT fpk.*, a.username as username, p.prodi as nama_prodi FROM `form_pengajuan_kkp` fpk left JOIN prodi p on fpk.prodi = p.id_prodi left join akun a on a.id_user = fpk.id_pengaju where fpk.id_form = " . $id;
+			return $this->db->query($query);
+	}
+
+	public function getListKKPDetailByIdKKP($id_form){
+		$query = "SELECT fpkd.*, fpk.judul FROM `form_pengajuan_kkp_detail` fpkd left JOIN form_pengajuan_kkp fpk on fpk.id_form = fpkd.id_form where fpkd.id_form = " . $id_form;
+		return $this->db->query($query);
+	}
+
+	public function getListDopimById($id){
+		if($id != 0){
+			$query = "SELECT fpd.*, a.username as username, d.* FROM `form_pengajuan_dopim` fpd left join akun a on a.id_user = fpd.id_pengaju left join dosen d on d.id_dosen = fpd.kaprodi where fpd.id_pengaju = " . $id;
+		}else{
+			$query = "SELECT fpd.*, a.username as username, d.* FROM `form_pengajuan_dopim` fpd left JOIN akun a on a.id_user = fpd.id_pengaju left join dosen d on d.id_dosen = fpd.kaprodi";
+		}
+		return $this->db->query($query);
+	}
+
+	public function getListDopimByFormDopim($id){
+		$query = "SELECT fpd.*, a.username as username FROM `form_pengajuan_dopim` fpd left join akun a on a.id_user = fpd.id_pengaju where fpd.id_form_dopim = " . $id;
+		return $this->db->query($query);
+	}
+
+	public function getListDopimByIdFormPengajuan($id){
+		$query = "SELECT fpd.*, a.username as username, p.prodi as nama_prodi FROM `form_pengajuan_kkp` fpk left JOIN prodi p on fpk.prodi = p.id_prodi left join akun a on a.id_user = fpk.id_pengaju where fpk.id_form = " . $id;
+		return $this->db->query($query);
+	}
+
+	public function getProdiByUser($id){
+		$query = "SELECT a.*, m.*, d.* from akun a left join mahasiswa m on m.id_akun = a.id_user
+				  left join dosen d on d.id_prodi = m.kode_prodi where 
+				 a.id_user = " . $id;
+		return $this->db->query($query);
+	}
 }

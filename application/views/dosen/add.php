@@ -66,9 +66,25 @@
                     <div class="form-group">
                       <label for="username" class="col-sm-2 control-label">Jabatan</label>
                       <div class="col-sm-10">
-                        <select class="form-control select2" name="jabatan" style="width: 100%;">
-                          <option selected="selected" value="kaprodi">Kepala Prodi</option>
+                        <select class="form-control select2 jabatan" name="jabatan" style="width: 100%;">
+                          <option  value="kaprodi" selected="selected">Kepala Prodi</option>
                           <option value="dosen">Dosen</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group prodi" style="display: none;">
+                      <label for="username" class="col-sm-2 control-label">Prodi</label>
+                      <div class="col-sm-10">
+                        <select class="form-control select2" name="id_prodi" style="width: 100%;">
+                          <?php
+                            if(!empty($prodi)){
+                              foreach ($prodi as $values) {
+                          ?>
+                            <option value="<?php echo $values["id_prodi"];?>"><?php echo $values['prodi'];?></option>
+                          <?php
+                              }
+                            }
+                          ?>
                         </select>
                       </div>
                     </div>

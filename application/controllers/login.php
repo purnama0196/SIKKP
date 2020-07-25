@@ -25,12 +25,15 @@ class Login extends CI_Controller {
 			$data_session = array(
 				'username' => $data->username,
 				'status'   => 1,
-				'role'	   => $data->id_role
+				'role'	   => $data->id_role,
+				'id'	   => $data->id_user
 			);
 
 			if($data->id_role == 4){
 				$reject = $this->all_model->getRejectKKP((int)$data->id_role);
 				$this->session->set_flashdata('reject', $reject->status_approval);
+
+				$this->session->set_userdata($data_session);
 				redirect(base_url('home'));
 			}
 

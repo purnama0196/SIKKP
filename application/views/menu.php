@@ -19,9 +19,22 @@
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li><a href="<?php echo base_url("kkp/add")?>"><i class="fa fa-square"></i> Pengajuan KKP</a></li>
+        <li><a href="<?php echo base_url("kkp/index")?>"><i class="fa fa-square"></i> Pengajuan KKP</a></li>
         <?php if(!empty($reject) && $reject == 2){?>
         <li><a href="pages/charts/morris.html"><i class="fa fa-building-o"></i> Revisi Pengajuan KKP</a></li>
+        <?php } ?>
+      </ul>
+    </li>
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-file"></i>
+        <span>DoPim</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="<?php echo base_url("dopim/index")?>"><i class="fa fa-square"></i> Pengajuan DoPim</a></li>
+        <?php if(!empty($reject) && $reject == 2){?>
+        <li><a href="pages/charts/morris.html"><i class="fa fa-building-o"></i> Revisi Pengajuan DoPim</a></li>
         <?php } ?>
       </ul>
     </li>
