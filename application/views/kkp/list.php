@@ -25,7 +25,7 @@
               <div class="box-header">
                 <h3 class="box-title">List Data Pengajuan KKP</h3>
                 <?php
-                  if(empty($kkp)){
+                  if(empty($kkp) && $this->session->userdata('role') == 4){
                 ?>
                   <a href="<?php echo base_url('kkp/add')?>">
                     <button style="float: right;" class="btn btn-primary">Tambah</button>
@@ -69,20 +69,20 @@
                           if($value['status_approval'] == 0){
                             echo 'Pengajuan baru';
                           }else if($value['status_approval'] == 1){
-                            echo 'Menunggu akseptasi KaProdi';
+                            echo 'Menunggu akseptasi Koordinator KKP';
                           }else if($value['status_approval'] == 2){
-                            echo 'Pengajuan disetujui KaProdi';
+                            echo 'Pengajuan disetujui Koordinator KKP (Menunggu akseptasi KaProdi)';
                           }else if($value['status_approval'] == 3){
-                            echo 'Pengajuan ditolak KaProdi';
-                          }else if($value['status_approval'] == 4){
-                            echo 'Pengajuan disetujui Koordinator KKP';
-                          }else{
                             echo 'Pengajuan ditolak Koordinator KKP';
+                          }else if($value['status_approval'] == 4){
+                            echo 'Pengajuan disetujui KaProdi';
+                          }else{
+                            echo 'Pengajuan ditolak KaProdi';
                           }
                         ?>
                       </td>
                       <td>
-                        <?php if($value['status_approval'] == 0 && $this->session->userdata('role') == 4){ ?>
+                        <?php if(($value['status_approval'] == 0 || $value['status_approval'] == 3 || $value['status_approval'] == 5) && $this->session->userdata('role') == 4){ ?>
                           <a href="<?php echo base_url('kkp/edit/' . $value['id_form'])?>">
                             <button class="btn btn-warning" type="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                           </a>
@@ -96,20 +96,20 @@
                         <a href="<?php echo base_url('kkp/detail/' . $value['id_form'])?>">
                           <button class="btn btn-success" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
                         </a>
-                        <?php if($value['status_approval'] == 1 && $this->session->userdata('role') == 2){ ?>
-                          <a href="<?php echo base_url('kkp/approveKaProdi/' . $value['id_form'])?>">
-                            <button class="btn btn-warning" type="button"><i class="fa fa-check" aria-hidden="true"></i></button>
-                          </a>
-                          <a href="<?php echo base_url('kkp/rejectKaProdi/' . $value['id_form'])?>">
-                            <button class="btn btn-danger" type="button"><i class="fa fa-close" aria-hidden="true"></i></button>
-                          </a>
-                        <?php } ?>
-
-                        <?php if($value['status_approval'] == 2 && $this->session->userdata('role') == 1){ ?>
+                        <?php if($value['status_approval'] == 1 && $this->session->userdata('role') == 1){ ?>
                           <a href="<?php echo base_url('kkp/approveAdmin/' . $value['id_form'])?>">
                             <button class="btn btn-warning" type="button"><i class="fa fa-check" aria-hidden="true"></i></button>
                           </a>
                           <a href="<?php echo base_url('kkp/rejectAdmin/' . $value['id_form'])?>">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-close" aria-hidden="true"></i></button>
+                          </a>
+                        <?php } ?>
+
+                        <?php if($value['status_approval'] == 2 && $this->session->userdata('role') == 2){ ?>
+                          <a href="<?php echo base_url('kkp/approveKaProdi/' . $value['id_form'])?>">
+                            <button class="btn btn-warning" type="button"><i class="fa fa-check" aria-hidden="true"></i></button>
+                          </a>
+                          <a href="<?php echo base_url('kkp/rejectKaProdi/' . $value['id_form'])?>">
                             <button class="btn btn-danger" type="button"><i class="fa fa-close" aria-hidden="true"></i></button>
                           </a>
                         <?php } ?>

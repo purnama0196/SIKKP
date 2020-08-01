@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2020 at 11:47 AM
+-- Generation Time: Aug 01, 2020 at 02:12 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `akun` (
   `username` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
   `id_role` int(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `akun`
@@ -46,7 +46,8 @@ INSERT INTO `akun` (`id_user`, `username`, `password`, `id_role`) VALUES
 (15, 'test1', '827ccb0eea8a706c4c34a16891f84e7b', 4),
 (16, 'purnama2', '827ccb0eea8a706c4c34a16891f84e7b', 4),
 (17, 'apriani', '827ccb0eea8a706c4c34a16891f84e7b', 4),
-(18, 'jun', '827ccb0eea8a706c4c34a16891f84e7b', 4);
+(18, 'jun', '827ccb0eea8a706c4c34a16891f84e7b', 4),
+(19, 'dosen1', '827ccb0eea8a706c4c34a16891f84e7b', 3);
 
 -- --------------------------------------------------------
 
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `dosen` (
   `id_akun` int(20) NOT NULL,
   `jabatan` varchar(200) NOT NULL,
   `id_prodi` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dosen`
@@ -70,7 +71,8 @@ CREATE TABLE IF NOT EXISTS `dosen` (
 
 INSERT INTO `dosen` (`id_dosen`, `nik`, `nama_dosen`, `email`, `id_akun`, `jabatan`, `id_prodi`) VALUES
 (4, 655, 'adel', 'adel@gmail.om', 8, 'kaprodi', 3),
-(5, 4232, 'ani', 'ani@gmail.com', 9, 'kaprodi', NULL);
+(5, 4232, 'ani', 'ani@gmail.com', 9, 'kaprodi', NULL),
+(6, 786, 'dosen1', 'dosen1@gmail.com', 19, 'dosen', 1);
 
 -- --------------------------------------------------------
 
@@ -100,16 +102,16 @@ CREATE TABLE IF NOT EXISTS `form_pengajuan_dopim` (
   `konten` varchar(100) DEFAULT NULL,
   `status_approval` int(11) NOT NULL,
   `id_pengaju` int(20) NOT NULL,
-  `id_kkp` int(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `id_kkp` int(20) NOT NULL,
+  `files` varchar(200) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `form_pengajuan_dopim`
 --
 
-INSERT INTO `form_pengajuan_dopim` (`id_form_dopim`, `kaprodi`, `id_dosen`, `topik`, `tujuan_tema`, `judul_laporan_kkp`, `konten`, `status_approval`, `id_pengaju`, `id_kkp`) VALUES
-(5, '4', 5, 'tedt', 'tret', 'test', NULL, 0, 16, 8),
-(6, '4', 4, 'testq', 'testwq', 'Pembangunan aplikasi abc', NULL, 0, 17, 9);
+INSERT INTO `form_pengajuan_dopim` (`id_form_dopim`, `kaprodi`, `id_dosen`, `topik`, `tujuan_tema`, `judul_laporan_kkp`, `konten`, `status_approval`, `id_pengaju`, `id_kkp`, `files`) VALUES
+(14, '4', 6, 'test', 'test', 'judul', NULL, 4, 16, 14, '4-spring-mvc-with-hibernate-and-postgresql.pdf');
 
 -- --------------------------------------------------------
 
@@ -150,19 +152,14 @@ CREATE TABLE IF NOT EXISTS `form_pengajuan_kkp` (
   `status_approval` int(30) NOT NULL,
   `pengaju` varchar(200) DEFAULT NULL,
   `id_pengaju` int(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `form_pengajuan_kkp`
 --
 
 INSERT INTO `form_pengajuan_kkp` (`id_form`, `judul`, `penerima_satu`, `penerima_dua`, `nama_perusahaan`, `alamat_perusahaan`, `jenjang_pendidikan`, `prodi`, `divisi`, `status_approval`, `pengaju`, `id_pengaju`) VALUES
-(1, 'KKP (Kuliah Kerja Praktek)', 'Manajer SDM Keuangan & IT', NULL, 'UTP Balai Yasa Manggarai', 'Manggarai, Jl.Bukit Duri, Tebet', 'S1', 0, 'IT', 4, NULL, 1),
-(2, 'KKP Sistem Informasi', 'IT Head', NULL, 'PT. Internasional', 'Gambir, Jl. Fachrudin,No. 18', 'S1', 0, 'IT', 1, NULL, 2),
-(3, 'Judul KKP', 'Penerima Satu', '', 'Nama Perusahaan', 'Alamat', 'S1', 1, 'IT', 1, NULL, 1),
-(9, 'Pembangunan aplikasi abc', 'test', 'test', 'test1', 'test', 'D3', 3, 'IT', 3, NULL, 17),
-(10, 'Analisis sistem abc', 'test', 'test', 'test', 'test', 'D3', 1, 'IT', 0, NULL, 18),
-(11, 'test65', 'test52', 'test51', 'test', 'test45', 'D3', 3, 'IT', 0, NULL, 16);
+(14, 'judul', 'penerima 1', 'penerima 2', 'nama perusahaan', 'alamat', 'D3', 1, 'divisi akutansi', 4, NULL, 16);
 
 -- --------------------------------------------------------
 
@@ -182,24 +179,15 @@ CREATE TABLE IF NOT EXISTS `form_pengajuan_kkp_detail` (
   `tempat_lahir` varchar(100) DEFAULT NULL,
   `tanggal_lahir` date DEFAULT NULL,
   `alamat` varchar(1000) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `form_pengajuan_kkp_detail`
 --
 
 INSERT INTO `form_pengajuan_kkp_detail` (`id_form_detail`, `id_form`, `nim_mahasiswa`, `nama_mahasiswa`, `email`, `telepon`, `jenjang_pendidikan`, `program_studi`, `tempat_lahir`, `tanggal_lahir`, `alamat`) VALUES
-(1, 1, '11314055', 'Purnama Pasaribu', 'purnama@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 1, '11314056', 'Prety Girsang', 'pretty@yahoo.co.id', NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 2, '11314057', 'Bernike Sitanggang', 'bernike@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 2, '11314058', 'Aditya Pranata', 'aditya@yahoo.co.id', NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 2, '11314059', 'Maykana Sagala', 'maykana@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 3, '111', '111', '111', NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 1, '3324323', 'test', 'testse@gsg.gsg', NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 4, '111111111', 'nama', 'email@asas.voon', NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 9, '11314002', 'Apriani Simanjuntak', 'test', '123', 'D3', 'Sistem Inf', 'Jakarta', '2019-01-01', 'Alamat apriani'),
-(13, 9, '11314001', 'Purnama Pasaribu', 'test', '234', 'D3', 'Sistem Inf', 'Jakarta', '2019-01-01', 'Test'),
-(14, 10, '11314003', 'Jun', 'test', '345', 'D3', 'Sistem Aku', 'Jakarta', '2019-01-01', 'test');
+(19, 14, '11314001', 'nama 1', 'email@mm.c.c', '0742', 'D3', 'Sistem Aku', 'test', '2019-01-01', 'test'),
+(20, 14, '11314002', 'kedua', 'test_email@mm.c.c', '096', 'D3', 'Sistem Aku', 'tempat', '2018-01-01', 'test');
 
 -- --------------------------------------------------------
 
@@ -400,12 +388,12 @@ ALTER TABLE `status_approval`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id_user` int(200) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+  MODIFY `id_user` int(200) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id_dosen` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id_dosen` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `form_bimbingan`
 --
@@ -415,7 +403,7 @@ ALTER TABLE `form_bimbingan`
 -- AUTO_INCREMENT for table `form_pengajuan_dopim`
 --
 ALTER TABLE `form_pengajuan_dopim`
-  MODIFY `id_form_dopim` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id_form_dopim` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `form_pengajuan_dopim_detail`
 --
@@ -425,12 +413,12 @@ ALTER TABLE `form_pengajuan_dopim_detail`
 -- AUTO_INCREMENT for table `form_pengajuan_kkp`
 --
 ALTER TABLE `form_pengajuan_kkp`
-  MODIFY `id_form` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id_form` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `form_pengajuan_kkp_detail`
 --
 ALTER TABLE `form_pengajuan_kkp_detail`
-  MODIFY `id_form_detail` int(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id_form_detail` int(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `laporan_kkp`
 --

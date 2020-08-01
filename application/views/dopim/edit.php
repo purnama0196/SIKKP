@@ -27,7 +27,7 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <!-- form start -->
-                <form class="form-horizontal" method="post" action="<?php echo base_url('dopim/processEdit');?>">
+                <form class="form-horizontal" method="post" action="<?php echo base_url('dopim/processEdit');?>" enctype="multipart/form-data">
                   <div class="box-body">
                     <input type="hidden" class="form-control" name="id_form_dopim" value="<?php echo $dopim->id_form_dopim;?>">
                     <div class="form-group">
@@ -88,6 +88,12 @@
                       <div class="col-sm-10">
                         <input type="text" class="form-control" id="judul_laporan_kkp" placeholder="Judul Laporan Kkp"
                         name="judul_laporan_kkp" required value="<?php echo $dopim->judul_laporan_kkp;?>" disabled="true">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="file_dokumen" class="col-sm-2 control-label">File Dokumen</label>
+                      <div class="col-sm-10">
+                        <input type="file" class="form-control" id="files_dokumen" placeholder="File Dokumen" name="userfile">
                       </div>
                     </div>
                   </div><!-- /.box-body -->

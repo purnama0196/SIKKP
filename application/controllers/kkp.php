@@ -131,33 +131,35 @@ class KKP extends CI_Controller {
 		redirect(base_url() . 'kkp/index');
 	}
 
-	public function approveKaProdi($id_form){
+	public function approveAdmin($id_form){
 		$data = array('status_approval' => 2);
 		$condition = array('id_form' => $id_form);
 		$res = $this->all_model->updateData('form_pengajuan_kkp', $condition, $data);
 		redirect(base_url() . 'kkp/index');
 	}
 
-	public function rejectKaProdi($id_form){
+	public function rejectAdmin($id_form){
 		$data = array('status_approval' => 3);
 		$condition = array('id_form' => $id_form);
 		$res = $this->all_model->updateData('form_pengajuan_kkp', $condition, $data);
 		redirect(base_url() . 'kkp/index');
 	}
 
-	public function approveAdmin($id_form){
+	public function approveKaProdi($id_form){
 		$data = array('status_approval' => 4);
 		$condition = array('id_form' => $id_form);
 		$res = $this->all_model->updateData('form_pengajuan_kkp', $condition, $data);
 		redirect(base_url() . 'kkp/index');
 	}
 
-	public function rejectAdmin($id_form){
+	public function rejectKaProdi($id_form){
 		$data = array('status_approval' => 5);
 		$condition = array('id_form' => $id_form);
 		$res = $this->all_model->updateData('form_pengajuan_kkp', $condition, $data);
 		redirect(base_url() . 'kkp/index');
 	}
+
+
 }
 
 

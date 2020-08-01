@@ -68,6 +68,13 @@
                         <?php echo $dopim->judul_laporan_kkp;?>
                       </td>
                     </tr>
+
+                    <tr>
+                      <th>File Dokumen</th>
+                      <td>
+                        <a href="<?=base_url('upload/' . $dopim->files)?>" target="_blank"><?php echo $dopim->files;?></a>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
 

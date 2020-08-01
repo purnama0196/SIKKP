@@ -102,4 +102,27 @@ class All_model extends CI_Model{
 				 a.id_user = " . $id;
 		return $this->db->query($query);
 	}
+
+	public function getApproveKKPByKaprodi($role, $id){
+		// $query = "SELECT fpk.* FROM `form_pengajuan_kkp_detail` f left JOIN mahasiswa m on f.nim_mahasiswa = m.nim left join akun a on a.id_role = m.id_akun left join form_pengajuan_kkp fpk on fpk.id_form = f.id_form  
+  //           where fpk.status_approval = 4 and a.id_role = 4";
+  		$query = "SELECT fpk.* FROM form_pengajuan_kkp_detail f
+            left join form_pengajuan_kkp fpk on fpk.id_form = f.id_form  
+            left join mahasiswa m on m.nim = f.nim_mahasiswa
+            left join akun a on a.id_user = m.id_akun
+            where fpk.status_approval = 4 and a.id_user = " . $id;
+		return $this->db->query($query);
+	}
+
+	public function getApproveDopimByKaprodi($role, $id){
+		// $query = "SELECT fpk.* FROM `form_pengajuan_kkp_detail` f left JOIN mahasiswa m on f.nim_mahasiswa = m.nim left join akun a on a.id_role = m.id_akun left join form_pengajuan_kkp fpk on fpk.id_form = f.id_form  
+  //           where fpk.status_approval = 4 and a.id_role = 4";
+  		$query = "SELECT fpk.* FROM form_pengajuan_kkp_detail f
+            left join form_pengajuan_kkp fpk on fpk.id_form = f.id_form
+            left join form_pengajuan_dopim fpd on fpd.id_kkp = fpk.id_form  
+            left join mahasiswa m on m.nim = f.nim_mahasiswa
+            left join akun a on a.id_user = m.id_akun
+            where fpd.status_approval = 4 and a.id_user = " . $id;
+		return $this->db->query($query);
+	}
 }

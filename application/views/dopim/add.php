@@ -27,7 +27,7 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <!-- form start -->
-                <form class="form-horizontal" method="post" action="<?php echo base_url('dopim/processAdd');?>">
+                <form class="form-horizontal" method="post" action="<?php echo base_url('dopim/processAdd');?>" enctype="multipart/form-data">
                   <div class="box-body">
                     <div class="form-group">
                       <label for="kaprodi" class="col-sm-2 control-label">KaProdi</label>
@@ -74,6 +74,12 @@
                         name="judul_kkp" value="<?php echo $kkp->judul;?>" disabled="true" required>
                         <input type="hidden" name="id_kkp" value="<?php echo $kkp->id_form;?>">
                         <input type="hidden" name="judul_laporan_kkp" value="<?php echo $kkp->judul;?>">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="file_dokumen" class="col-sm-2 control-label">File Dokumen</label>
+                      <div class="col-sm-10">
+                        <input type="file" class="form-control" id="files_dokumen" placeholder="File Dokumen" name="userfile" required>
                       </div>
                     </div>
                   </div><!-- /.box-body -->
